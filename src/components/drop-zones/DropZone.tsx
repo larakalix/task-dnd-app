@@ -7,17 +7,10 @@ type Props = {
     status: Status;
     items: Task[];
     isDragging: boolean;
-    handleDragging: (dragging: boolean) => void;
     handleDrop: (e: React.DragEvent<HTMLDivElement>, status: Status) => void;
 };
 
-export const DropZone = ({
-    status,
-    items,
-    isDragging,
-    handleDragging,
-    handleDrop,
-}: Props) => {
+export const DropZone = ({ status, items, isDragging, handleDrop }: Props) => {
     const styles = clsx({
         ["border-dashed border-blue-500"]: isDragging,
         ["border-solid border-t-dz-gray"]: !isDragging,
@@ -37,11 +30,7 @@ export const DropZone = ({
             {items.map(
                 (item, index) =>
                     status === item.status && (
-                        <DropItem
-                            key={`item-${index}`}
-                            item={item}
-                            handleDragging={handleDragging}
-                        />
+                        <DropItem key={`item-${index}`} item={item} />
                     )
             )}
         </div>

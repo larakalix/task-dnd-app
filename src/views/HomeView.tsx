@@ -5,14 +5,19 @@ import { ViewWrapper } from "@/wrapper/ViewWrapper";
 import { useTaskStore } from "@/store/taskStore";
 import { AddTask } from "@/components/task-handling/add-task/AddTask";
 import { Modal } from "@/components/generics/modal/Modal";
+import HomeContext from "@/context/HomeContext";
 
 const typesHero: Status[] = [Status.Backlog, Status.InProgress, Status.Done];
+
+const { Provider } = HomeContext;
 
 export const HomeView = () => {
     const [isDragging, setIsDragging] = useState(false);
     const { tasks, updateTask } = useTaskStore((state) => state);
 
-    const handleDragging = (dragging: boolean) => setIsDragging(dragging);
+    const handleDragging = (dragging: boolean) => {
+        setIsDragging(dragging);
+    };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, status: Status) => {
         e.preventDefault();
@@ -25,23 +30,24 @@ export const HomeView = () => {
     };
 
     return (
-        <ViewWrapper title="Tasks">
-            <Modal title="Add Task">
-                <AddTask />
-            </Modal>
+        <Provider value={{ isDragging, handleDragging }}>
+            <ViewWrapper title="Tasks">
+                <Modal title="Add Task">
+                    <AddTask />
+                </Modal>
 
-            <div className="grid grid-cols-3 gap-3">
-                {typesHero.map((type, index) => (
-                    <DropZone
-                        key={`zone-${index}`}
-                        status={type}
-                        items={tasks.filter((s) => s.status === type)}
-                        isDragging={isDragging}
-                        handleDragging={handleDragging}
-                        handleDrop={handleDrop}
-                    />
-                ))}
-            </div>
-        </ViewWrapper>
+                <div className="grid grid-cols-3 gap-3">
+                    {typesHero.map((type, index) => (
+                        <DropZone
+                            key={`zone-${index}`}
+                            status={type}
+                            items={tasks.filter((s) => s.status === type)}
+                            isDragging={isDragging}
+                            handleDrop={handleDrop}
+                        />
+                    ))}
+                </div>
+            </ViewWrapper>
+        </Provider>
     );
 };
