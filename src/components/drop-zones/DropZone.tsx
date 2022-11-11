@@ -19,8 +19,8 @@ export const DropZone = ({
     handleDrop,
 }: Props) => {
     const styles = clsx({
-        ["border-black"]: isDragging,
-        ["border-t-dz-gray"]: !isDragging,
+        ["border-dashed border-blue-500"]: isDragging,
+        ["border-solid border-t-dz-gray"]: !isDragging,
     });
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) =>
@@ -28,7 +28,7 @@ export const DropZone = ({
 
     return (
         <div
-            className={`border ${styles} h-[90vh] w-full rounded-md bg-t-dz-gray p-4`}
+            className={`border-2 ${styles} h-[90vh] w-full rounded-md bg-t-dz-gray px-2 py-3`}
             onDrop={(event) => handleDrop(event, status)}
             onDragOver={handleDragOver}
         >

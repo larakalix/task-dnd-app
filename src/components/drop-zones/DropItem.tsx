@@ -21,7 +21,9 @@ export const DropItem = ({ item, handleDragging }: Props) => {
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
         >
-            <span className="text-t-dz-black">{item.title}</span>
+            <span className="text-t-dz-black font-normal">{item.title}</span>
+
+            <p className="text-gray-500 text-[0.9rem] font-light">{item.description}</p>
         </div>
     );
 };

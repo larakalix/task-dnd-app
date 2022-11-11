@@ -3,6 +3,8 @@ import { DropZone } from "@/components/drop-zones/DropZone";
 import { Status } from "@/types/drop-zones";
 import { ViewWrapper } from "@/wrapper/ViewWrapper";
 import { useTaskStore } from "@/store/taskStore";
+import { AddTask } from "@/components/task-handling/add-task/AddTask";
+import { Modal } from "@/components/generics/modal/Modal";
 
 const typesHero: Status[] = [Status.Backlog, Status.InProgress, Status.Done];
 
@@ -17,13 +19,17 @@ export const HomeView = () => {
         const _id = e.dataTransfer.getData("_id");
         const _status = e.dataTransfer.getData("_status");
         if (!_id || status === _status) return;
-        
+
         updateTask(_id, status);
         handleDragging(false);
     };
 
     return (
         <ViewWrapper title="Tasks">
+            <Modal title="Add Task">
+                <AddTask />
+            </Modal>
+
             <div className="grid grid-cols-3 gap-3">
                 {typesHero.map((type, index) => (
                     <DropZone

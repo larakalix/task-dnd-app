@@ -5,6 +5,7 @@ import { Status } from "@/types/drop-zones";
 
 type TaskStoreState = {
     tasks: Task[];
+    addTask: (task: Task) => void;
     updateTask: (id: string, status: Status) => void;
 };
 
@@ -32,6 +33,15 @@ export const useTaskStore = create<TaskStoreState>()(
                         status: Status.Backlog,
                     },
                 ],
+                addTask: (task: Task) => {
+                    if (!task) return false;
+
+                    set((state) => ({
+                        tasks: [...state.tasks, task],
+                    }));
+
+                    return !!task;
+                },
                 updateTask: (id: string, status: Status) => {
                     const tasks = get().tasks;
                     const task = tasks.find((t) => t.id === id);
