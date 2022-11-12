@@ -6,7 +6,8 @@ import { Status } from "@/types/drop-zones";
 type TaskStoreState = {
     tasks: Task[];
     addTask: (task: Task) => void;
-    updateTask: (id: string, props: { [key: string]: unknown }) => void;
+    // updateTask: (id: string, props: { [key: string]: unknown }) => void;
+    updateTask: (id: string, props: Partial<Task>) => void;
 };
 
 export const useTaskStore = create<TaskStoreState>()(
@@ -47,20 +48,9 @@ export const useTaskStore = create<TaskStoreState>()(
                 },
                 updateTask: (id, props) => {
                     const tasks = get().tasks;
-                    const task = tasks.find((t) => t.id === id);
+                    let task = get().tasks.find((t) => t.id === id);
 
-                    // console.log("PROPS", props);
-
-                    if (task) {
-                        if (props["status"] as Status)
-                            task.status = props["status"] as Status;
-
-                        if (
-                            (props.hasOwnProperty("isLocked") as boolean) ===
-                            true
-                        )
-                            task.isLocked = Boolean(props["isLocked"]);
-                    }
+                    if (task) Object.assign(task, props);
 
                     set({ tasks });
                 },
