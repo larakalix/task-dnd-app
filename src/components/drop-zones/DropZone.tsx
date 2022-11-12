@@ -2,18 +2,19 @@ import clsx from "clsx";
 import { Status } from "@/types/drop-zones";
 import { Task } from "@/types/task";
 import { DropItem } from "./DropItem";
+import { StateProps } from "@/context/HomeContext";
 
 type Props = {
     status: Status;
     items: Task[];
-    isDragging: boolean;
+    dragging: StateProps;
     handleDrop: (e: React.DragEvent<HTMLDivElement>, status: Status) => void;
 };
 
-export const DropZone = ({ status, items, isDragging, handleDrop }: Props) => {
+export const DropZone = ({ status, items, dragging, handleDrop }: Props) => {
     const styles = clsx({
-        ["border-dashed border-blue-500"]: isDragging,
-        ["border-solid border-t-dz-gray"]: !isDragging,
+        ["border-dashed border-blue-500"]: dragging.isDragging,
+        ["border-solid border-t-dz-gray"]: !dragging.isDragging,
     });
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) =>

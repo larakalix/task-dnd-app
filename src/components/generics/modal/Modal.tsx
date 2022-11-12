@@ -3,29 +3,40 @@ import { Dialog, Transition } from "@headlessui/react";
 
 type Props = {
     title: string;
-    subtitle?: string;
     children: JSX.Element | JSX.Element[];
+    showFromOutside?: boolean;
+    outsideFn?: () => void;
 };
 
-export const Modal = ({ title, subtitle, children }: Props) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const Modal = ({
+    title,
+    children,
+    showFromOutside = false,
+    outsideFn = undefined,
+}: Props) => {
+    if (showFromOutside) console.log(showFromOutside);
+    if (outsideFn) console.log(outsideFn);
 
-    const closeModal = () => setIsOpen(false);
+    const [isOpen, setIsOpen] = useState(showFromOutside || false);
 
-    const openModal = () => setIsOpen(true);
+    const handleModal = () => setIsOpen((state) => (state = !state));
 
     return (
         <>
             <button
                 type="button"
-                onClick={openModal}
+                onClick={outsideFn || handleModal}
                 className="rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 mb-4"
             >
                 {title}
             </button>
 
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Dialog
+                    as="div"
+                    className="relative z-10"
+                    onClose={outsideFn || handleModal}
+                >
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -62,7 +73,7 @@ export const Modal = ({ title, subtitle, children }: Props) => {
                                         <button
                                             type="button"
                                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                            onClick={closeModal}
+                                            onClick={outsideFn || handleModal}
                                         >
                                             Got it, thanks!
                                         </button>

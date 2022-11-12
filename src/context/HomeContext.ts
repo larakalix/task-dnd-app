@@ -1,12 +1,20 @@
 import { createContext } from "react";
 
-type ContextProps = {
+export type StateProps = {
     isDragging: boolean;
-    handleDragging: (dragging: boolean) => void;
+    taskId: string | null;
+};
+
+export type ContextProps = {
+    dragging: StateProps;
+    handleDragging: (dragging: boolean, taskId: string) => void;
 };
 
 export const HomeContext = createContext({
-    isDragging: false,
+    dragging: {
+        isDragging: false,
+        taskId: null,
+    },
     handleDragging: (dragging: boolean) => {},
 } as ContextProps);
 

@@ -5,6 +5,7 @@ export type Task = {
     title: string;
     description: string;
     status: Status;
+    isLocked: boolean;
 };
 
 export type TaskStatus = {

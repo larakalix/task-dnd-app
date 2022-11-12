@@ -3,20 +3,23 @@ import { DropZone } from "@/components/drop-zones/DropZone";
 import { Status } from "@/types/drop-zones";
 import { ViewWrapper } from "@/wrapper/ViewWrapper";
 import { useTaskStore } from "@/store/taskStore";
-import { AddTask } from "@/components/task-handling/add-task/AddTask";
+import { HandleSingleTask } from "@/components/task-handling/add-task/HandleSingleTask";
 import { Modal } from "@/components/generics/modal/Modal";
-import HomeContext from "@/context/HomeContext";
+import HomeContext, { StateProps } from "@/context/HomeContext";
 
 const typesHero: Status[] = [Status.Backlog, Status.InProgress, Status.Done];
 
 const { Provider } = HomeContext;
 
 export const HomeView = () => {
-    const [isDragging, setIsDragging] = useState(false);
+    const [dragging, setDragging] = useState<StateProps>({
+        isDragging: false,
+        taskId: null,
+    });
     const { tasks, updateTask } = useTaskStore((state) => state);
 
-    const handleDragging = (dragging: boolean) => {
-        setIsDragging(dragging);
+    const handleDragging = (isDragging: boolean, taskId: string) => {
+        setDragging((state) => ({ ...state, isDragging, taskId }));
     };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, status: Status) => {
@@ -25,15 +28,15 @@ export const HomeView = () => {
         const _status = e.dataTransfer.getData("_status");
         if (!_id || status === _status) return;
 
-        updateTask(_id, status);
-        handleDragging(false);
+        updateTask(_id, { status, isLocked: status === Status.Done });
+        handleDragging(false, _id);
     };
 
     return (
-        <Provider value={{ isDragging, handleDragging }}>
+        <Provider value={{ dragging, handleDragging }}>
             <ViewWrapper title="Tasks">
-                <Modal title="Add Task">
-                    <AddTask />
+                <Modal title="Add task">
+                    <HandleSingleTask />
                 </Modal>
 
                 <div className="grid grid-cols-3 gap-3">
@@ -42,7 +45,7 @@ export const HomeView = () => {
                             key={`zone-${index}`}
                             status={type}
                             items={tasks.filter((s) => s.status === type)}
-                            isDragging={isDragging}
+                            dragging={dragging}
                             handleDrop={handleDrop}
                         />
                     ))}

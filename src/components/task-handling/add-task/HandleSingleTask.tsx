@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import { useAddTask } from "./hooks/useAddTask";
 import { FormField } from "@/components/generics/form-field/FormField";
 
-export const AddTask = () => {
+export const HandleSingleTask = () => {
     const { validationSchema, formFields, initialValues, createTask } =
         useAddTask();
 
