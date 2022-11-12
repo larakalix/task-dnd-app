@@ -1,3 +1,7 @@
+import { Form, Formik } from "formik";
+import { FormField } from "@/components/generics/form-field/FormField";
+import { HandleSummaryTask } from "@/components/task-handling/summary-task/HandleSummaryTask";
+
 type Props = {
     id: string;
 };
@@ -5,7 +9,7 @@ type Props = {
 export const SingleTaskView = ({ id }: Props) => {
     return (
         <div>
-            <h1>{id}</h1>
+            <HandleSummaryTask id={id} />
         </div>
     );
 };

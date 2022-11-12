@@ -1,10 +1,10 @@
 import Router from "next/router";
 import { SingleTaskView } from "@/views/SingleTaskView";
 
-export const Task = () => {
+export default function Task() {
     const { id } = Router.query;
 
-    if (!id) return null;
+    if (!id || !Router.isReady) return null;
 
     return <SingleTaskView id={String(id)} />;
-};
+}

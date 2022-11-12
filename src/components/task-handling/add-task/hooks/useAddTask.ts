@@ -24,6 +24,7 @@ export const useAddTask = () => {
         title: "",
         description: "",
         status: Status.Backlog,
+        isLocked: false,
     };
 
     const createTask = (values: Omit<Task, "id">) => {
