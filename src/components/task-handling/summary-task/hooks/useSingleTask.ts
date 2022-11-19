@@ -1,3 +1,9 @@
+import { useTaskStore } from "@/store/taskStore";
+
 export const useSingleTask = (id: string) => {
-    return {};
+    const { getTask } = useTaskStore((state) => state);
+
+    return {
+        getTask,
+    };
 };

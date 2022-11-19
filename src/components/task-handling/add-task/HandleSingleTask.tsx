@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import toast, { Toaster } from "react-hot-toast";
 import { useAddTask } from "./hooks/useAddTask";
 import { FormField } from "@/components/generics/form-field/FormField";
 
@@ -8,6 +9,7 @@ export const HandleSingleTask = () => {
 
     return (
         <div className="flex items-center justify-center">
+            <Toaster />
             <Formik
                 enableReinitialize
                 validationSchema={validationSchema}
@@ -18,6 +20,7 @@ export const HandleSingleTask = () => {
                     createTask(values);
 
                     actions.resetForm();
+                    toast.success("Successfully created!");
                 }}
             >
                 {({ errors, isSubmitting }) => (

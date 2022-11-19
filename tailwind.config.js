@@ -9,8 +9,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                "t-dz-gray": "#f4f5f7",
+                "t-dz-gray": "#f0f3fe",
                 "t-dz-black": "#172b4d",
+                "t-dz-layout": "#f8f9fd",
             },
         },
     },

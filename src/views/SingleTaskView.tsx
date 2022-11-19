@@ -1,5 +1,4 @@
-import { Form, Formik } from "formik";
-import { FormField } from "@/components/generics/form-field/FormField";
+import { ViewWrapper } from "@/wrapper/ViewWrapper";
 import { HandleSummaryTask } from "@/components/task-handling/summary-task/HandleSummaryTask";
 
 type Props = {
@@ -8,8 +7,8 @@ type Props = {
 
 export const SingleTaskView = ({ id }: Props) => {
     return (
-        <div>
+        <ViewWrapper title="Update task">
             <HandleSummaryTask id={id} />
-        </div>
+        </ViewWrapper>
     );
 };

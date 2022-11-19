@@ -33,7 +33,7 @@ export const DropItemActions = ({ task }: Props) => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                             <div className="px-1 py-1 ">
                                 <Menu.Item>
                                     {({ active }) => (
@@ -46,7 +46,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                         >
                                             <FiEdit
-                                                className="mr-4 h-4 w-4"
+                                                className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
                                                 aria-hidden="true"
                                             />
                                             Edit task
@@ -66,7 +66,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             {task.isLocked ? (
                                                 <>
                                                     <FiUnlock
-                                                        className="mr-4 h-4 w-4"
+                                                        className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
                                                         aria-hidden="true"
                                                     />
                                                     Unlock
@@ -74,7 +74,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             ) : (
                                                 <>
                                                     <FiLock
-                                                        className="mr-4 h-4 w-4"
+                                                        className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
                                                         aria-hidden="true"
                                                     />
                                                     Lock
@@ -94,7 +94,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                         >
                                             <FiTrash
-                                                className="mr-4 h-4 w-4"
+                                                className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
                                                 aria-hidden="true"
                                             />
                                             Delete

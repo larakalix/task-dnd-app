@@ -31,7 +31,11 @@ export const DropZone = ({ status, items, dragging, handleDrop }: Props) => {
             {items.map(
                 (item, index) =>
                     status === item.status && (
-                        <DropItem key={`item-${index}`} item={item} />
+                        <DropItem
+                            key={`item-${index}`}
+                            item={item}
+                            index={index}
+                        />
                     )
             )}
         </div>

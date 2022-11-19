@@ -5,7 +5,7 @@ import { Status } from "@/types/drop-zones";
 import { useTaskStore } from "@/store/taskStore";
 
 export const useAddTask = () => {
-    const { addTask } = useTaskStore((state) => state);
+    const { addTask, updateTask } = useTaskStore((state) => state);
 
     const validationSchema = yup.object().shape({
         title: yup.string().required("Title required").min(8, "Too Short!"),
@@ -36,10 +36,15 @@ export const useAddTask = () => {
         addTask(task);
     };
 
+    const changeTask = (id: string, values: Omit<Task, "id">) => {
+        updateTask(id, values);
+    };
+
     return {
         validationSchema,
         formFields,
         initialValues,
         createTask,
+        changeTask,
     };
 };
