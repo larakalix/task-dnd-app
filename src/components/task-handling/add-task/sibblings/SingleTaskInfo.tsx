@@ -7,7 +7,8 @@ type Props = {
 
 export const SingleTaskInfo = ({ task }: Props) => {
     return (
-        <div className="w-full mt-8">
+        <div className="w-full">
+            <h1 className="mb-4">Comments</h1>
             <div className="w-full rounded-md shadow-sm bg-t-dz-layout mb-2 px-3 py-2">
                 {task.comments.length === 0 && (
                     <p className="text-gray-500 text-sm flex items-center justify-center min-h-[6rem]">
