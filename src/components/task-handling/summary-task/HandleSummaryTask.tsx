@@ -1,7 +1,7 @@
-import { useAddTask } from "../add-task/hooks/useAddTask";
 import { useSingleTask } from "./hooks/useSingleTask";
 import { Status } from "@/types/drop-zones";
 import { HandleSingleTask } from "../add-task/HandleSingleTask";
+import { SingleTaskSource } from "@/types/task";
 
 type Props = {
     id: string;
@@ -16,6 +16,7 @@ export const HandleSummaryTask = ({ id }: Props) => {
         <HandleSingleTask
             status={task ? task.status : Status.Backlog}
             task={task}
+            source={SingleTaskSource.SingleView}
         />
     );
 };

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { FiLock, FiUnlock } from "react-icons/fi";
 import HomeContext from "@/context/HomeContext";
-import { ITask } from "@/types/task";
+import { ITask, SingleTaskSource } from "@/types/task";
 import { DropItemActions } from "../DropItemActions";
 import { useTaskStore } from "@/store/taskStore";
 import { ItemFooter, Labels } from "./sibblings";
@@ -60,6 +60,7 @@ export const DropItem = ({ task, index }: Props) => {
                             <HandleSingleTask
                                 status={task.status}
                                 task={task}
+                                source={SingleTaskSource.SingleView}
                             />
                         </Modal>
                         {task.isLocked ? (

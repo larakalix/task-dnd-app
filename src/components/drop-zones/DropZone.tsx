@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { FormButtonType, Status } from "@/types/drop-zones";
-import { ITask } from "@/types/task";
+import { ITask, SingleTaskSource } from "@/types/task";
 import { DropItem } from "./DropItem/DropItem";
 import { StateProps } from "@/context/HomeContext";
 import { Modal } from "../generics/modal/Modal";
@@ -36,7 +36,10 @@ export const DropZone = ({ status, tasks, dragging, handleDrop }: Props) => {
                     buttonLabel="+"
                     buttonType={FormButtonType.DropZoneButton}
                 >
-                    <HandleSingleTask status={status} />
+                    <HandleSingleTask
+                        status={status}
+                        source={SingleTaskSource.Board}
+                    />
                 </Modal>
             </div>
 
@@ -46,7 +49,10 @@ export const DropZone = ({ status, tasks, dragging, handleDrop }: Props) => {
                     buttonLabel="Create new task"
                     buttonType={FormButtonType.EmptyDropZoneButton}
                 >
-                    <HandleSingleTask status={status} />
+                    <HandleSingleTask
+                        status={status}
+                        source={SingleTaskSource.Board}
+                    />
                 </Modal>
             )}
 

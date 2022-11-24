@@ -7,7 +7,7 @@ import { useTaskStore } from "@/store/taskStore";
 export const useAddTask = ({
     status = Status.Backlog,
     task,
-}: IHandleSingleTaskProps) => {
+}: Omit<IHandleSingleTaskProps, "source">) => {
     const { labels, addTask, updateTask } = useTaskStore((state) => state);
 
     const validationSchema = yup.object().shape({

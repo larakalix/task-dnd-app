@@ -30,5 +30,11 @@ export type ITaskComment = {
 
 export type IHandleSingleTaskProps = {
     status: Status;
+    source: SingleTaskSource;
     task?: ITask | null;
 };
+
+export enum SingleTaskSource {
+    Board = "board",
+    SingleView = "single-view",
+}

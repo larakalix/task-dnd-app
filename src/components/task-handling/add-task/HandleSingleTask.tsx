@@ -3,10 +3,15 @@ import toast, { Toaster } from "react-hot-toast";
 import clsx from "clsx";
 import { useAddTask } from "./hooks/useAddTask";
 import { FormField } from "@/components/generics/form-field/FormField";
-import { IHandleSingleTaskProps } from "@/types/task";
+import { IHandleSingleTaskProps, SingleTaskSource } from "@/types/task";
 import { FormTaskLabel } from "@/components/generics/form-field/FormTaskLabel";
+import { SingleTaskInfo } from "./sibblings/SingleTaskInfo";
 
-export const HandleSingleTask = ({ status, task }: IHandleSingleTaskProps) => {
+export const HandleSingleTask = ({
+    status,
+    task,
+    source,
+}: IHandleSingleTaskProps) => {
     const {
         labels,
         validationSchema,
@@ -23,7 +28,7 @@ export const HandleSingleTask = ({ status, task }: IHandleSingleTaskProps) => {
     });
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
             <Toaster />
             <Formik
                 enableReinitialize
@@ -47,6 +52,15 @@ export const HandleSingleTask = ({ status, task }: IHandleSingleTaskProps) => {
             >
                 {({ errors, isSubmitting }) => (
                     <Form className="w-full">
+                        {source === SingleTaskSource.SingleView && (
+                            <button
+                                disabled={isSubmitting}
+                                className={`rounded-md ${buttonStyles} px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 mb-4`}
+                                type="submit"
+                            >
+                                {task ? "Update task" : "Create task"}
+                            </button>
+                        )}
                         <div className="grid grid-cols-1 lg:grid-cols-1 gap-3">
                             {formFields.map(({ label, name, disabled }) => (
                                 <FormField
@@ -78,16 +92,22 @@ export const HandleSingleTask = ({ status, task }: IHandleSingleTaskProps) => {
                             </div>
                         </div>
 
-                        <button
-                            disabled={isSubmitting}
-                            className={`rounded-md ${buttonStyles} px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 mt-4`}
-                            type="submit"
-                        >
-                            {task ? "Update task" : "Create task"}
-                        </button>
+                        {source === SingleTaskSource.Board && (
+                            <button
+                                disabled={isSubmitting}
+                                className={`rounded-md ${buttonStyles} px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 mt-4`}
+                                type="submit"
+                            >
+                                {task ? "Update task" : "Create task"}
+                            </button>
+                        )}
                     </Form>
                 )}
             </Formik>
+
+            {source === SingleTaskSource.SingleView && task && (
+                <SingleTaskInfo task={task} />
+            )}
         </div>
     );
 };
