@@ -1,13 +1,15 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { Task } from "@/types/task";
+import { ITask, ITaskLabel } from "@/types/task";
 import { Status } from "@/types/drop-zones";
+import { LABELS, TASKS } from "src/data/data";
 
 type TaskStoreState = {
-    tasks: Task[];
-    addTask: (task: Task) => void;
-    getTask: (id: string) => Omit<Task, "id"> | undefined;
-    updateTask: (id: string, props: Partial<Task>) => void;
+    tasks: ITask[];
+    labels: ITaskLabel[];
+    addTask: (task: ITask) => void;
+    getTask: (id: string) => Omit<ITask, "id"> | undefined;
+    updateTask: (id: string, props: Partial<ITask>) => void;
     reorderTasks: (fromId: string, toId: string) => void;
 };
 
@@ -15,40 +17,8 @@ export const useTaskStore = create<TaskStoreState>()(
     devtools(
         persist(
             (set, get) => ({
-                tasks: [
-                    {
-                        id: "123",
-                        title: "Ticket M-123",
-                        description:
-                            "Believing neglected so so allowance existence departure in.",
-                        status: Status.Backlog,
-                        isLocked: false,
-                    },
-                    {
-                        id: "656",
-                        title: "Ticket M-656",
-                        description:
-                            "Particular unaffected projection sentiments no my.",
-                        status: Status.Backlog,
-                        isLocked: false,
-                    },
-                    {
-                        id: "111",
-                        title: "Ticket M-111",
-                        description:
-                            "Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated.",
-                        status: Status.Backlog,
-                        isLocked: true,
-                    },
-                    {
-                        id: "984",
-                        title: "Ticket M-984",
-                        description:
-                            "Talking chamber as shewing an it minutes. Trees fully of blind do.",
-                        status: Status.Backlog,
-                        isLocked: false,
-                    },
-                ],
+                tasks: TASKS,
+                labels: LABELS,
                 addTask: (task) => {
                     if (!task) return false;
 

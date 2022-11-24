@@ -1,17 +1,19 @@
 import clsx from "clsx";
-import { Status } from "@/types/drop-zones";
-import { Task } from "@/types/task";
-import { DropItem } from "./DropItem";
+import { FormButtonType, Status } from "@/types/drop-zones";
+import { ITask } from "@/types/task";
+import { DropItem } from "./DropItem/DropItem";
 import { StateProps } from "@/context/HomeContext";
+import { Modal } from "../generics/modal/Modal";
+import { HandleSingleTask } from "../task-handling/add-task/HandleSingleTask";
 
 type Props = {
     status: Status;
-    items: Task[];
+    tasks: ITask[];
     dragging: StateProps;
     handleDrop: (e: React.DragEvent<HTMLDivElement>, status: Status) => void;
 };
 
-export const DropZone = ({ status, items, dragging, handleDrop }: Props) => {
+export const DropZone = ({ status, tasks, dragging, handleDrop }: Props) => {
     const styles = clsx({
         ["border-dashed border-blue-500"]: dragging.isDragging,
         ["border-solid border-t-dz-gray"]: !dragging.isDragging,
@@ -26,14 +28,34 @@ export const DropZone = ({ status, items, dragging, handleDrop }: Props) => {
             onDrop={(event) => handleDrop(event, status)}
             onDragOver={handleDragOver}
         >
-            <span className="text-t-dz-black block mb-2">{status}</span>
+            <div className="flex justify-between items-center mb-4">
+                <span className="text-t-dz-black">{status}</span>
 
-            {items.map(
-                (item, index) =>
-                    status === item.status && (
+                <Modal
+                    title="Create task"
+                    buttonLabel="+"
+                    buttonType={FormButtonType.DropZoneButton}
+                >
+                    <HandleSingleTask status={status} />
+                </Modal>
+            </div>
+
+            {tasks.length === 0 && (
+                <Modal
+                    title="Create task"
+                    buttonLabel="Create new task"
+                    buttonType={FormButtonType.EmptyDropZoneButton}
+                >
+                    <HandleSingleTask status={status} />
+                </Modal>
+            )}
+
+            {tasks.map(
+                (task, index) =>
+                    status === task.status && (
                         <DropItem
                             key={`item-${index}`}
-                            item={item}
+                            task={task}
                             index={index}
                         />
                     )

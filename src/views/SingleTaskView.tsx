@@ -8,7 +8,9 @@ type Props = {
 export const SingleTaskView = ({ id }: Props) => {
     return (
         <ViewWrapper title="Update task">
-            <HandleSummaryTask id={id} />
+            <div className="flex items-center justify-center flex-col w-full m-auto md:max-w-5xl lg:max-w-7xl">
+                <HandleSummaryTask id={id} />
+            </div>
         </ViewWrapper>
     );
 };

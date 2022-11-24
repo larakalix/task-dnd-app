@@ -3,11 +3,11 @@ import Link from "next/link";
 import { TbDotsVertical } from "react-icons/tb";
 import { Menu, Transition } from "@headlessui/react";
 import { FiEdit, FiLock, FiTrash, FiUnlock } from "react-icons/fi";
-import { Task } from "@/types/task";
+import { ITask } from "@/types/task";
 import { useTaskStore } from "@/store/taskStore";
 
 type Props = {
-    task: Task;
+    task: ITask;
 };
 
 export const DropItemActions = ({ task }: Props) => {
@@ -46,7 +46,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                         >
                                             <FiEdit
-                                                className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
+                                                className="mr-4 h-6 w-6 text-gray-400 border border-dashed p-1 rounded-sm"
                                                 aria-hidden="true"
                                             />
                                             Edit task
@@ -66,7 +66,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             {task.isLocked ? (
                                                 <>
                                                     <FiUnlock
-                                                        className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
+                                                        className="mr-4 h-6 w-6 text-gray-400 border border-dashed p-1 rounded-sm"
                                                         aria-hidden="true"
                                                     />
                                                     Unlock
@@ -74,7 +74,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             ) : (
                                                 <>
                                                     <FiLock
-                                                        className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
+                                                        className="mr-4 h-6 w-6 text-gray-400 border border-dashed p-1 rounded-sm"
                                                         aria-hidden="true"
                                                     />
                                                     Lock
@@ -94,7 +94,7 @@ export const DropItemActions = ({ task }: Props) => {
                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                         >
                                             <FiTrash
-                                                className="mr-4 h-6 w-6 text-gray-400 border-2 border-dashed p-1 rounded-sm"
+                                                className="mr-4 h-6 w-6 text-gray-400 border border-dashed p-1 rounded-sm"
                                                 aria-hidden="true"
                                             />
                                             Delete

@@ -12,6 +12,7 @@ module.exports = {
                 "t-dz-gray": "#f0f3fe",
                 "t-dz-black": "#172b4d",
                 "t-dz-layout": "#f8f9fd",
+                "t-gray-button": "#e5e7f8",
             },
         },
     },

@@ -35,16 +35,12 @@ export const HomeView = () => {
     return (
         <Provider value={{ dragging, handleDragging }}>
             <ViewWrapper title="Tasks">
-                <Modal title="Add task">
-                    <HandleSingleTask />
-                </Modal>
-
                 <div className="grid grid-cols-3 gap-3">
                     {typesHero.map((type, index) => (
                         <DropZone
                             key={`zone-${index}`}
                             status={type}
-                            items={tasks.filter((s) => s.status === type)}
+                            tasks={tasks.filter((s) => s.status === type)}
                             dragging={dragging}
                             handleDrop={handleDrop}
                         />
